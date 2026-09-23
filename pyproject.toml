@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autonomous-market-analysis-agent"
+version = "0.1.0"
+description = "An autonomous financial market analysis agent with data ingestion, feature engineering, ML scoring, and report generation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Sierra" }
+]
+keywords = ["machine-learning", "finance", "market-analysis", "trading", "agent"]
+dependencies = []
+
+[project.scripts]
+market-agent = "market_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
