@@ -1,8 +1,8 @@
 # Autonomous Market Analysis Agent
 
-An autonomous market-analysis project that pulls historical financial data, builds technical features, trains a lightweight machine-learning model, scores tickers, and generates a decision-ready markdown report.
+An autonomous market analysis project that pulls historical financial data, builds technical features, trains a lightweight machine learning model, scores tickers, and generates a decision-ready markdown report.
 
-This project is designed to be resume-friendly: it shows data ingestion, feature engineering, model training, signal generation, evaluation, and clean software packaging without requiring paid APIs.
+This project is designed to be resume friendly: it shows data ingestion, feature engineering, model training, signal generation, evaluation, and clean software packaging without requiring paid APIs.
 
 ## What It Does
 
