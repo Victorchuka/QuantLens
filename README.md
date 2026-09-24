@@ -71,11 +71,11 @@ src/market_agent/
 
 The classifier predicts whether the next daily close will be higher than the current close. It uses engineered features from recent price and volume history, then outputs a probability score. The agent combines that probability with recent trend and volatility to produce a human-readable market signal.
 
-This is not financial advice. It is an educational ML engineering project.
+This is not financial advice. It is an educational ML engineering project I came up with.
 
-## Resume Pitch
+## My Resume Pitch
 
-Built an autonomous market-analysis agent in Python that ingests financial time-series data, engineers trading features, trains a custom logistic-regression model, evaluates predictive performance, and generates explainable market reports for multiple tickers.
+Built an autonomous market analysis agent in Python that ingests financial time series data, engineers trading features, trains a custom logistic regression model, evaluates predictive performance, and generates explainable market reports for multiple tickers.
 
 ## Future Improvements
 
@@ -84,3 +84,6 @@ Built an autonomous market-analysis agent in Python that ingests financial time-
 - Add backtesting and strategy comparison.
 - Publish reports automatically with GitHub Actions.
 - Add sentiment features from financial news.
+
+# Finally (my little disclaimer)
+QuantLens is a research and educational prototype, not a guaranteed stock prediction or automated trading system. Financial markets are noisy, and historical patterns do not guarantee future performance.
