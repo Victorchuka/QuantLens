@@ -6,8 +6,8 @@ This project is designed to be resume friendly: it shows data ingestion, feature
 
 ## What It Does
 
-- Pulls daily OHLCV market data from Stooq.
-- Caches downloaded data locally for repeatable analysis.
+- Pulls real daily OHLCV market data from Yahoo Finance through `yfinance` by default.
+- Includes an offline synthetic-data provider for demonstrations and tests.
 - Builds features such as momentum, volatility, moving-average spread, volume trend, and drawdown.
 - Trains a small logistic-regression classifier from scratch using Python's standard library.
 - Predicts the probability of a positive next-day move.
@@ -19,10 +19,11 @@ This project is designed to be resume friendly: it shows data ingestion, feature
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
+python -m pip install -e .
 python -m market_agent --symbols AAPL MSFT NVDA --lookback-days 365
 ```
 
-If you are running directly from the repo without installing it first:
+If the project and its dependencies are already installed:
 
 ```bash
 PYTHONPATH=src python -m market_agent --symbols AAPL MSFT NVDA --lookback-days 365
@@ -48,6 +49,9 @@ Offline deterministic demo:
 ```bash
 PYTHONPATH=src python -m market_agent --provider sample --symbols AAPL MSFT NVDA
 ```
+
+The default `yfinance` provider uses real historical data. The `sample` provider
+uses generated fictional data and is intended only for offline demonstrations and tests.
 
 The agent writes a report like:
 

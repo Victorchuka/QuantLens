@@ -13,11 +13,12 @@ authors = [
   { name = "Sierra" }
 ]
 keywords = ["machine-learning", "finance", "market-analysis", "trading", "agent"]
-dependencies = []
+dependencies = [
+  "yfinance>=1.0,<2.0",
+]
 
 [project.scripts]
 market-agent = "market_agent.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-

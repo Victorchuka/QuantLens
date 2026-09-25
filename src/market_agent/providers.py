@@ -27,17 +27,23 @@ class StooqProvider(MarketDataProvider):
 
 
 class YFinanceProvider(MarketDataProvider):
-    """Optional yfinance adapter for users who install yfinance later."""
+    """Download real historical daily OHLCV data through yfinance."""
 
     def fetch(self, ticker: str, period: str) -> list[PriceBar]:
         try:
             import yfinance as yf
         except ImportError as exc:
-            raise RuntimeError("Install yfinance to use YFinanceProvider, or use StooqProvider.") from exc
+            raise RuntimeError(
+                "The yfinance package is required for real market data. "
+                "Install the project with: python3 -m pip install -e ."
+            ) from exc
 
         frame = yf.download(ticker, period=period, auto_adjust=True, progress=False)
         if frame.empty:
-            raise ValueError(f"No market data returned for ticker {ticker!r}.")
+            raise ValueError(
+                f"No Yahoo Finance market data returned for ticker {ticker!r}. "
+                "Check the symbol and internet connection."
+            )
         if hasattr(frame.columns, "get_level_values") and getattr(frame.columns, "nlevels", 1) > 1:
             frame.columns = frame.columns.get_level_values(0)
         frame = frame.reset_index()

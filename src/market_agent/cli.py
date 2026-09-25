@@ -32,9 +32,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--provider",
-        choices=["stooq", "sample"],
-        default="stooq",
-        help="Data source to use. Use sample for an offline deterministic demo. Default: stooq",
+        choices=["yfinance", "sample"],
+        default="yfinance",
+        help=(
+            "Data source to use. yfinance downloads real historical Yahoo Finance data; "
+            "sample generates fictional offline data. Default: yfinance"
+        ),
     )
     parser.add_argument(
         "--cache-dir",

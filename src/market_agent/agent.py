@@ -10,7 +10,7 @@ from market_agent.data import MarketDataClient, PriceBar
 from market_agent.features import build_dataset, latest_feature_row
 from market_agent.model import LogisticMarketModel, ModelMetrics
 from market_agent.models import AnalysisConfig, AnalysisReport
-from market_agent.providers import MarketDataProvider
+from market_agent.providers import MarketDataProvider, SampleDataProvider, YFinanceProvider
 from market_agent.reporting import AnalysisResult, write_report
 
 
@@ -62,9 +62,10 @@ class MarketAnalysisAgent:
         results: list[AnalysisResult] = []
         for symbol in self.config.symbols:
             if self.config.provider == "sample":
-                from market_agent.providers import SampleDataProvider
-
                 bars = SampleDataProvider(seed=7).fetch(symbol, "2y")
+            elif self.config.provider == "yfinance":
+                period = self._period_for_lookback(self.config.lookback_days)
+                bars = YFinanceProvider().fetch(symbol, period)
             else:
                 bars = self.data_client.get_daily_prices(symbol, start, end)
             result = self._analyze_symbol(symbol, bars)
@@ -72,8 +73,27 @@ class MarketAnalysisAgent:
 
         timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
         report_path = self.config.reports_dir / f"market_report_{timestamp}.md"
-        write_report(report_path, results, self.config.risk_profile, start, end)
+        write_report(
+            report_path,
+            results,
+            self.config.risk_profile,
+            start,
+            end,
+            data_source=self.config.provider,
+        )
         return report_path
+
+    @staticmethod
+    def _period_for_lookback(lookback_days: int) -> str:
+        if lookback_days <= 365:
+            return "1y"
+        if lookback_days <= 730:
+            return "2y"
+        if lookback_days <= 1_825:
+            return "5y"
+        if lookback_days <= 3_650:
+            return "10y"
+        return "max"
 
     def _analyze_symbol(self, symbol: str, bars: list[PriceBar]) -> AnalysisResult:
         dataset = build_dataset(bars)
